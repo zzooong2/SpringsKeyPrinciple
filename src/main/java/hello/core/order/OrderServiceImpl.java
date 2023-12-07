@@ -3,10 +3,14 @@ package hello.core.order;
 import hello.core.discount.DiscountPolicy;
 import hello.core.member.Member;
 import hello.core.member.MemberRepository;
-import hello.core.member.MemoryMemberRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+/*
+@RequiredArgsConstructor // final 키워드가 붙은 메소드의 파라미터를 받는 생성자를 자동으로 만들어줌
+                         // 코드가 명확, 깔끔해지고 final 키워드도 사용 할 수 있음
+*/
 @Component
 public class OrderServiceImpl implements OrderService {
 
@@ -20,13 +24,11 @@ public class OrderServiceImpl implements OrderService {
     /* 다형성에 의해 외부에서 결정된 객체가 주입됨 */
     /* 의존관계에 대한 고민은 외부에 맡기고 실행에만 집중한다 */
 
-
+    // 생성자 메소드는 @RequiredArgsConstructor 어노테이션이 자동으로 생성해줄 수 있음
     @Autowired // 자동으로 의존관계 주입을 해줌 == ac.getBean(MemberRepository.class)
-    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
-        System.out.println("memberRepository = " + memberRepository);
-        System.out.println("discountPolicy = " + discountPolicy);
+    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy rateDiscountPolicy) {
         this.memberRepository = memberRepository;
-        this.discountPolicy = discountPolicy;
+        this.discountPolicy = rateDiscountPolicy;
     }
 
     @Override
