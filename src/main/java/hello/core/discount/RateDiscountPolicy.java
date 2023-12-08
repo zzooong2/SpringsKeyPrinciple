@@ -1,11 +1,16 @@
 package hello.core.discount;
 
+import hello.core.annotation.MainDiscountPolicy;
 import hello.core.member.Grade;
 import hello.core.member.Member;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 @Component
+@MainDiscountPolicy // 해당 어노테이션 붙어 있는 것을 찾음
+// @Primary // @Primary 어노테이션이 붙어있는 클래스를 먼저 찾음
 public class RateDiscountPolicy implements DiscountPolicy {
 
     private int discountPercent = 10; //10% 할인
